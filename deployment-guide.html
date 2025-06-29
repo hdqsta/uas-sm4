@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment Guide - Java Classes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h1 { color: #1f2937; margin-bottom: 1rem; }
+        h2 { color: #374151; margin-top: 2rem; margin-bottom: 1rem; }
+        h3 { color: #4b5563; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        .alert {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .success {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        .info {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+        }
+        code {
+            background: #f3f4f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        .step {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .file-tree {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Deployment Guide - Java Classes</h1>
+        
+        <div class="info alert">
+            <strong>💡 Penjelasan:</strong> File Java (.java) perlu di-compile menjadi bytecode (.class) 
+            sebelum bisa dijalankan di server. File .class inilah yang di-copy ke WEB-INF/classes/
+        </div>
+
+        <h2>🔄 Proses Compile Java Files</h2>
+
+        <h3>1. File Java yang Perlu Di-compile</h3>
+        <p>Dari project kita, file-file Java berikut perlu di-compile:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>File Java (.java)</th>
+                    <th>Package</th>
+                    <th>Hasil Compile (.class)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Participant.java</td>
+                    <td>com.himami.model</td>
+                    <td>Participant.class</td>
+                </tr>
+                <tr>
+                    <td>User.java</td>
+                    <td>com.himami.model</td>
+                    <td>User.class</td>
+                </tr>
+                <tr>
+                    <td>DataStorage.java</td>
+                    <td>com.himami.storage</td>
+                    <td>DataStorage.class</td>
+                </tr>
+                <tr>
+                    <td>ParticipantServlet.java</td>
+                    <td>com.himami.servlet</td>
+                    <td>ParticipantServlet.class</td>
+                </tr>
+                <tr>
+                    <td>AuthServlet.java</td>
+                    <td>com.himami.servlet</td>
+                    <td>AuthServlet.class</td>
+                </tr>
+                <tr>
+                    <td>RegisterServlet.java</td>
+                    <td>com.himami.servlet</td>
+                    <td>RegisterServlet.class</td>
+                </tr>
+                <tr>
+                    <td>JsonUtil.java</td>
+                    <td>com.himami.util</td>
+                    <td>JsonUtil.class</td>
+                </tr>
+                <tr>
+                    <td>ResponseUtil.java</td>
+                    <td>com.himami.util</td>
+                    <td>ResponseUtil.class</td>
+                </tr>
+                <tr>
+                    <td>PasswordUtil.java</td>
+                    <td>com.himami.util</td>
+                    <td>PasswordUtil.class</td>
+                </tr>
+                <tr>
+                    <td>SessionUtil.java</td>
+                    <td>com.himami.util</td>
+                    <td>SessionUtil.class</td>
+                </tr>
+                <tr>
+                    <td>ValidationUtil.java</td>
+                    <td>com.himami.util</td>
+                    <td>ValidationUtil.class</td>
+                </tr>
+                <tr>
+                    <td>CharacterEncodingFilter.java</td>
+                    <td>com.himami.filter</td>
+                    <td>CharacterEncodingFilter.class</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2. Cara Compile Java Files</h3>
+
+        <div class="step">
+            <h4>Opsi A: Compile Manual dengan javac</h4>
+            <pre>
+# 1. Buat folder untuk compiled classes
+mkdir compiled-classes
+cd compiled-classes
+
+# 2. Compile semua Java files (dari folder src/main/java/)
+javac -cp "path/to/servlet-api.jar" -d . ../src/main/java/com/himami/model/*.java
+javac -cp "path/to/servlet-api.jar" -d . ../src/main/java/com/himami/storage/*.java
+javac -cp "path/to/servlet-api.jar" -d . ../src/main/java/com/himami/util/*.java
+javac -cp "path/to/servlet-api.jar" -d . ../src/main/java/com/himami/servlet/*.java
+javac -cp "path/to/servlet-api.jar" -d . ../src/main/java/com/himami/filter/*.java
+
+# 3. Hasil compile akan ada di folder compiled-classes/com/himami/...
+            </pre>
+        </div>
+
+        ## 🪟 **Windows-Specific Commands**
+
+        ### **Problem 1: Path Separator**
+        Di Windows gunakan `\` bukan `/`:
+
+        \`\`\`cmd
+        # ❌ Salah (Linux style):
+        ../src/main/java/com/himami/model/*.java
+
+        # ✅ Benar (Windows style):
+        ..\src\main\java\com\himami\model\*.java
+        \`\`\`
+
+        ### **Problem 2: Servlet API Path**
+        Anda perlu path yang benar ke servlet-api.jar:
+
+        \`\`\`cmd
+        # Jika menggunakan Tomcat:
+        "C:\apache-tomcat-9.0.xx\lib\servlet-api.jar"
+
+        # Atau download servlet-api.jar terpisah
+        \`\`\`
+
+        ### **Problem 3: Windows Command yang Benar**
+
+        \`\`\`cmd
+        # 1. Pastikan Anda di folder compiled-classes
+        cd C:\Users\User\Downloads\src\compiled-classes
+
+        # 2. Compile dengan path Windows yang benar:
+        javac -cp "C:\apache-tomcat-9.0.xx\lib\servlet-api.jar" -d . ..\src\main\java\com\himami\model\*.java
+
+        # 3. Jika wildcard tidak bekerja, compile satu per satu:
+        javac -cp "C:\apache-tomcat-9.0.xx\lib\servlet-api.jar" -d . ..\src\main\java\com\himami\model\Participant.java
+        javac -cp "C:\apache-tomcat-9.0.xx\lib\servlet-api.jar" -d . ..\src\main\java\com\himami\model\User.java
+        \`\`\`
+
+        <div class="step">
+            <h4>Opsi B: Compile dengan IDE (Recommended)</h4>
+            <ul>
+                <li><strong>Eclipse:</strong> Project → Build Project (Ctrl+B)</li>
+                <li><strong>IntelliJ IDEA:</strong> Build → Build Project (Ctrl+F9)</li>
+                <li><strong>VS Code:</strong> Install Java Extension Pack, auto-compile</li>
+            </ul>
+            <p>File .class akan ada di folder <code>bin/</code> atau <code>out/</code></p>
+        </div>
+
+        <h3>3. Struktur Folder WEB-INF/classes/</h3>
+        <p>Setelah compile, copy file .class ke struktur folder ini:</p>
+
+        <div class="file-tree">
+WEB-INF/
+└── classes/
+    └── com/
+        └── himami/
+            ├── model/
+            │   ├── Participant.class
+            │   └── User.class
+            ├── storage/
+            │   └── DataStorage.class
+            ├── servlet/
+            │   ├── ParticipantServlet.class
+            │   ├── AuthServlet.class
+            │   └── RegisterServlet.class
+            ├── util/
+            │   ├── JsonUtil.class
+            │   ├── ResponseUtil.class
+            │   ├── PasswordUtil.class
+            │   ├── SessionUtil.class
+            │   └── ValidationUtil.class
+            └── filter/
+                └── CharacterEncodingFilter.class
+        </div>
+
+        <h2>📋 Step-by-Step Deployment</h2>
+
+        <div class="step">
+            <h4>Step 1: Compile Java Files</h4>
+            <pre>
+# Jika menggunakan Eclipse:
+1. Import project ke Eclipse
+2. Right-click project → Properties → Java Build Path
+3. Add servlet-api.jar ke Libraries
+4. Project → Clean → Build
+
+# File .class akan ada di folder bin/
+            </pre>
+        </div>
+
+        <div class="step">
+            <h4>Step 2: Buat Struktur WAR</h4>
+            <pre>
+# Buat folder untuk WAR file
+mkdir himami-war
+cd himami-war
+
+# Copy semua file webapp
+cp -r ../src/main/webapp/* .
+
+# Buat folder WEB-INF/classes jika belum ada
+mkdir -p WEB-INF/classes
+            </pre>
+        </div>
+
+        <div class="step">
+            <h4>Step 3: Copy Compiled Classes</h4>
+            <pre>
+# Copy semua .class files dengan struktur package
+cp -r ../bin/com WEB-INF/classes/
+# atau jika menggunakan out folder (IntelliJ):
+# cp -r ../out/production/himami/com WEB-INF/classes/
+
+# Pastikan struktur folder benar:
+ls -la WEB-INF/classes/com/himami/
+            </pre>
+        </div>
+
+        <div class="step">
+            <h4>Step 4: Buat WAR File</h4>
+            <pre>
+# Buat WAR file
+jar -cvf himami.war *
+
+# Atau zip semua file:
+zip -r himami.war *
+            </pre>
+        </div>
+
+        <div class="step">
+            <h4>Step 5: Deploy ke Tomcat</h4>
+            <pre>
+# Copy WAR file ke Tomcat webapps
+cp himami.war $CATALINA_HOME/webapps/
+
+# Start Tomcat
+$CATALINA_HOME/bin/startup.sh
+
+# Akses aplikasi di:
+# http://localhost:8080/himami/
+            </pre>
+        </div>
+
+        <h2>🔍 Verifikasi Deployment</h2>
+
+        <div class="step">
+            <h4>Check 1: File Structure</h4>
+            <p>Pastikan struktur folder di Tomcat webapps benar:</p>
+            <div class="file-tree">
+$CATALINA_HOME/webapps/himami/
+├── index.html
+├── login.html
+├── register.html
+├── profile.html
+├── css/
+├── js/
+└── WEB-INF/
+    ├── web.xml
+    └── classes/
+        └── com/
+            └── himami/
+                ├── model/
+                ├── servlet/
+                ├── storage/
+                ├── util/
+                └── filter/
+            </div>
+        </div>
+
+        <div class="step">
+            <h4>Check 2: Test Servlet</h4>
+            <p>Test apakah servlet bisa diakses:</p>
+            <ul>
+                <li><code>http://localhost:8080/himami/api/participants</code> (GET)</li>
+                <li>Harus return JSON response, bukan 404 error</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Check 3: Tomcat Logs</h4>
+            <p>Periksa log Tomcat untuk error:</p>
+            <pre>
+# Check catalina.out untuk error
+tail -f $CATALINA_HOME/logs/catalina.out
+
+# Look for:
+# - ClassNotFoundException
+# - ServletException
+# - Deployment errors
+            </pre>
+        </div>
+
+        <h2>❌ Common Errors & Solutions</h2>
+
+        <div class="alert">
+            <h4>Error: ClassNotFoundException</h4>
+            <p><strong>Penyebab:</strong> File .class tidak ada atau salah lokasi</p>
+            <p><strong>Solusi:</strong></p>
+            <ul>
+                <li>Pastikan semua .java files sudah di-compile</li>
+                <li>Check struktur package di WEB-INF/classes/</li>
+                <li>Pastikan nama class dan package sesuai</li>
+            </ul>
+        </div>
+
+        <div class="alert">
+            <h4>Error: HTTP 404 - Servlet not found</h4>
+            <p><strong>Penyebab:</strong> Servlet mapping salah atau class tidak ditemukan</p>
+            <p><strong>Solusi:</strong></p>
+            <ul>
+                <li>Check web.xml servlet mapping</li>
+                <li>Pastikan servlet class ada di WEB-INF/classes/</li>
+                <li>Check annotation @WebServlet di servlet class</li>
+            </ul>
+        </div>
+
+        <div class="alert">
+            <h4>Error: HTTP 500 - Internal Server Error</h4>
+            <p><strong>Penyebab:</strong> Error di dalam servlet code</p>
+            <p><strong>Solusi:</strong></p>
+            <ul>
+                <li>Check Tomcat logs untuk detail error</li>
+                <li>Debug servlet code</li>
+                <li>Check dependencies (servlet-api.jar)</li>
+            </ul>
+        </div>
+
+        <h2>🎯 Quick Deployment Script</h2>
+        <p>Buat script untuk otomatis compile dan deploy:</p>
+
+        <pre>
+#!/bin/bash
+# deploy.sh
+
+echo "🔄 Compiling Java files..."
+javac -cp "$CATALINA_HOME/lib/servlet-api.jar" -d compiled-classes src/main/java/com/himami/*/*.java
+
+echo "📦 Creating WAR structure..."
+mkdir -p himami-war/WEB-INF/classes
+cp -r src/main/webapp/* himami-war/
+cp -r compiled-classes/com himami-war/WEB-INF/classes/
+
+echo "🚀 Creating WAR file..."
+cd himami-war
+jar -cvf ../himami.war *
+cd ..
+
+echo "📋 Deploying to Tomcat..."
+cp himami.war $CATALINA_HOME/webapps/
+
+echo "✅ Deployment complete!"
+echo "🌐 Access: http://localhost:8080/himami/"
+        </pre>
+
+        <div class="success alert">
+            <strong>💡 Ringkasan:</strong> Yang di-copy ke WEB-INF/classes/ adalah file .class hasil compile dari file .java, 
+            dengan struktur folder sesuai package (com/himami/model/, com/himami/servlet/, dll.)
+        </div>
+
+        <p style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" style="background: #3b82f6; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 0.5rem;">
+                ← Kembali ke Aplikasi
+            </a>
+        </p>
+    </div>
+</body>
+</html>

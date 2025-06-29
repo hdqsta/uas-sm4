@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - HIMA MI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .profile-page {
+            background: linear-gradient(135deg, #ebf4ff 0%, #e0e7ff 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+        
+        .profile-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .profile-header {
+            background: var(--bg-primary);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+        
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 4px solid var(--primary-color);
+            object-fit: cover;
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .profile-section {
+            background: var(--bg-primary);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .info-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="profile-page">
+    <div class="profile-container">
+        <!-- Back Navigation -->
+        <div class="back-navigation">
+            <a href="index.html" class="btn btn-ghost">
+                <i class="fas fa-arrow-left"></i>
+                <span data-translate="backToHome">Kembali ke Beranda</span>
+            </a>
+        </div>
+
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <img id="profileAvatarLarge" class="profile-avatar-large" src="/placeholder.svg" alt="Profile Avatar">
+            <h1 id="profileFullName">Loading...</h1>
+            <p id="profileRole" class="text-secondary">Member</p>
+            <p id="profileJoinDate" class="text-tertiary">Bergabung pada: -</p>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Personal Information -->
+            <div class="profile-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    <span data-translate="personalInfo">Informasi Pribadi</span>
+                </h2>
+                
+                <div class="info-item">
+                    <span class="info-label" data-translate="fullName">Nama Lengkap</span>
+                    <span id="infoFullName" class="info-value">-</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label" data-translate="username">Username</span>
+                    <span id="infoUsername" class="info-value">-</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label" data-translate="email">Email</span>
+                    <span id="infoEmail" class="info-value">-</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label" data-translate="role">Role</span>
+                    <span id="infoRole" class="info-value">-</span>
+                </div>
+            </div>
+
+            <!-- Account Settings -->
+            <div class="profile-section">
+                <h2 class="section-title">
+                    <i class="fas fa-cog"></i>
+                    <span data-translate="accountSettings">Pengaturan Akun</span>
+                </h2>
+                
+                <div class="info-item">
+                    <span class="info-label" data-translate="accountStatus">Status Akun</span>
+                    <span id="accountStatus" class="info-value">Aktif</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label" data-translate="lastLogin">Login Terakhir</span>
+                    <span id="lastLogin" class="info-value">-</span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label" data-translate="memberSince">Member Sejak</span>
+                    <span id="memberSince" class="info-value">-</span>
+                </div>
+                
+                <div style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary btn-full" onclick="editProfile()">
+                        <i class="fas fa-edit"></i>
+                        <span data-translate="editProfile">Edit Profil</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Section -->
+        <div class="profile-section" style="margin-top: 2rem;">
+            <h2 class="section-title">
+                <i class="fas fa-history"></i>
+                <span data-translate="recentActivity">Aktivitas Terbaru</span>
+            </h2>
+            
+            <div id="activityList">
+                <p class="text-center text-secondary">Belum ada aktivitas</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

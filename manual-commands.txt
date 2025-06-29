@@ -1,0 +1,73 @@
+🪟 Manual Windows Commands untuk Compile Java Files
+==================================================
+
+1. SETUP PATHS
+--------------
+# Ganti path ini sesuai lokasi Tomcat Anda:
+set TOMCAT_PATH=C:\apache-tomcat-9.0.xx
+set SERVLET_JAR=%TOMCAT_PATH%\lib\servlet-api.jar
+
+# Atau jika download servlet-api.jar terpisah:
+set SERVLET_JAR=C:\path\to\servlet-api.jar
+
+2. CREATE DIRECTORY
+-------------------
+mkdir compiled-classes
+cd compiled-classes
+
+3. COMPILE COMMANDS (satu per satu)
+-----------------------------------
+# Model classes:
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\model\Participant.java
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\model\User.java
+
+# Util classes:
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\util\JsonUtil.java
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\util\ResponseUtil.java
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\util\PasswordUtil.java
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\util\SessionUtil.java
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\util\ValidationUtil.java
+
+# Storage classes:
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\storage\DataStorage.java
+
+# Filter classes:
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\filter\CharacterEncodingFilter.java
+
+# Servlet classes:
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\servlet\ParticipantServlet.java
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\servlet\AuthServlet.java
+javac -cp "%SERVLET_JAR%" -d . ..\src\main\java\com\himami\servlet\RegisterServlet.java
+
+4. VERIFY COMPILATION
+---------------------
+# Check if classes were created:
+dir /S com
+
+# Should show structure like:
+# com\himami\model\Participant.class
+# com\himami\model\User.class
+# com\himami\servlet\ParticipantServlet.class
+# etc.
+
+5. COMMON ERRORS & SOLUTIONS
+----------------------------
+Error: "Invalid filename"
+→ Use backslash (\) not forward slash (/)
+→ Use double quotes around paths with spaces
+
+Error: "package javax.servlet does not exist"
+→ servlet-api.jar not found or wrong path
+→ Download from: https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+
+Error: "cannot find symbol"
+→ Missing dependency or wrong import
+→ Check if all required classes are compiled first
+
+6. ALTERNATIVE: Download servlet-api.jar
+----------------------------------------
+If you don't have Tomcat installed:
+1. Go to: https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+2. Download latest version (e.g., 4.0.1)
+3. Save as servlet-api.jar in your project folder
+4. Use: javac -cp "servlet-api.jar" -d . ..\src\main\java\com\himami\model\*.java

@@ -1,0 +1,114 @@
+🚨 TROUBLESHOOTING GUIDE - File Not Found Error
+===============================================
+
+PROBLEM: "file not found: ..\src\main\java\com\himami\model\Participant.java"
+
+POSSIBLE CAUSES & SOLUTIONS:
+===========================
+
+1. WRONG DIRECTORY
+------------------
+❌ You're running the script from the wrong folder
+✅ Solution: Navigate to the project root folder
+
+Check where you are:
+> echo %CD%
+
+Should be something like:
+C:\Users\User\Downloads\src
+
+If you're in compiled-classes folder, go back:
+> cd ..
+
+2. MISSING JAVA FILES
+---------------------
+❌ Java files don't exist or are in wrong location
+✅ Solution: Check if files exist
+
+> dir /S *.java
+
+If no files found, you need to create them first!
+
+3. WRONG FOLDER STRUCTURE
+-------------------------
+❌ Files are not in expected Maven structure
+✅ Solution: Check actual structure
+
+Expected:
+src/
+└── main/
+    └── java/
+        └── com/
+            └── himami/
+                ├── model/
+                ├── servlet/
+                ├── storage/
+                ├── util/
+                └── filter/
+
+Actual might be:
+- Files in current directory
+- Different folder names
+- Flat structure
+
+4. QUICK FIXES
+--------------
+
+Option A: Use flexible script
+> flexible-compile.bat
+
+Option B: Create proper structure
+> create-java-files.bat
+
+Option C: Manual check
+> check-structure.bat
+
+Option D: Smart auto-detection
+> smart-compile.bat
+
+5. MANUAL VERIFICATION
+---------------------
+
+Step 1: Check if Java files exist
+> dir /S *.java
+
+Step 2: Check current location
+> echo %CD%
+
+Step 3: List folder contents
+> dir
+
+Step 4: If files exist but in different location, adjust paths
+
+6. ALTERNATIVE APPROACH
+-----------------------
+
+If files are in current directory:
+> javac -cp "C:\tomcat\apache-tomcat-9.0.106\lib\servlet-api.jar" -d compiled-classes *.java
+
+If files are in different structure:
+> javac -cp "C:\tomcat\apache-tomcat-9.0.106\lib\servlet-api.jar" -d compiled-classes path\to\your\*.java
+
+7. COMMON SCENARIOS
+-------------------
+
+Scenario A: Files downloaded as individual files
+→ Put all .java files in proper folder structure
+
+Scenario B: Files in ZIP/project folder
+→ Extract and maintain folder structure
+
+Scenario C: Copy-paste from code blocks
+→ Create files manually in correct locations
+
+8. VERIFICATION COMMANDS
+------------------------
+
+Check if Participant.java exists:
+> if exist "src\main\java\com\himami\model\Participant.java" echo Found
+
+Check folder structure:
+> tree src /F
+
+Find all Java files:
+> forfiles /S /M *.java /C "cmd /c echo @path"

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIMA MI - Himpunan Mahasiswa Manajemen Informatika</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>HIMA MI</h1>
+                        <p id="subtitle">Himpunan Mahasiswa Manajemen Informatika</p>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <!-- Language Switcher -->
+                    <div class="language-switcher">
+                        <i class="fas fa-globe"></i>
+                        <select id="languageSelect" onchange="changeLanguage()">
+                            <option value="id">ID</option>
+                            <option value="en">EN</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Theme Toggle -->
+                    <div class="theme-toggle">
+                        <i class="fas fa-sun"></i>
+                        <label class="switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider"></span>
+                        </label>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    
+                    <!-- Polsri Logo -->
+                    <div class="polsri-logo">
+                        <img src="images/polsri-logo.png" alt="Logo Polsri" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMjQiIGZpbGw9IiMzQjgyRjYiLz4KPHN2ZyB4PSIxMiIgeT0iMTIiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Im0zIDkgOS03IDkgN3YxMWEyIDIgMCAwIDEtMiAySDVhMiAyIDAgMCAxLTItMnoiLz4KPHA+CjwvcGF0aD4KPC9zdmc+Cg=='">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="navigation">
+                <button class="nav-btn active" onclick="showSection('home')" data-translate="home">Beranda</button>
+                <button class="nav-btn" onclick="showSection('about')" data-translate="about">Tentang Kami</button>
+                <button class="nav-btn" onclick="showSection('register')" data-translate="register">Daftar Ekstrakurikuler</button>
+                <button class="nav-btn" onclick="showSection('participants')" data-translate="participants">Daftar Peserta</button>
+                
+                <!-- Auth Section -->
+                <div class="auth-section" id="authSection">
+                    <!-- Show when not logged in -->
+                    <div id="guestButtons" class="guest-buttons">
+                        <button class="nav-btn" onclick="window.location.href='login.html'" data-translate="login">Login</button>
+                        <button class="nav-btn nav-btn-register" onclick="window.location.href='register.html'" data-translate="registerAccount">Daftar Akun</button>
+                    </div>
+                    
+                    <!-- Show when logged in -->
+                    <div id="userProfile" class="user-profile" style="display: none;">
+                        <div class="profile-info" onclick="handleProfileClick()">
+                            <img id="profileAvatar" class="profile-avatar" src="/placeholder.svg" alt="Profile" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiMzQjgyRjYiLz4KPHN2ZyB4PSI4IiB5PSI4IiB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgo8cGF0aCBkPSJtMyA5IDkgNyA5LTd2MTFhMiAyIDAgMCAxLTIgMkg1YTIgMiAwIDAgMS0yLTJ6Ii8+CjxwYXRoIGQ9Im05IDIyVjEyaDZWMjIiLz4KPC9zdmc+Cg=='">
+                            <span id="profileName" class="profile-name">User</span>
+                            <i class="fas fa-chevron-down profile-dropdown-icon"></i>
+                        </div>
+                        <div id="profileDropdown" class="profile-dropdown" style="display: none;">
+                            <a href="profile.html" class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span data-translate="myProfile">Profil Saya</span>
+                            </a>
+                            <a href="#" onclick="logout()" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span data-translate="logout">Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="container">
+                <!-- Hero Section -->
+                <div class="hero">
+                    <div class="hero-content">
+                        <div class="hero-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h2 data-translate="heroTitle">Selamat Datang di HIMA MI</h2>
+                        <p data-translate="heroSubtitle">Himpunan Mahasiswa Manajemen Informatika Politeknik Negeri Sriwijaya</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="showSection('register')" data-translate="registerNow">Daftar Sekarang</button>
+                            <button class="btn btn-secondary" onclick="showSection('about')" data-translate="learnMore">Pelajari Lebih Lanjut</button>
+                            <button class="btn btn-outline" onclick="window.location.href='register.html'" data-translate="createAccount">Buat Akun</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3 id="memberCount">0</h3>
+                        <p data-translate="activeMembers">Anggota Aktif</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-award"></i>
+                        <h3>8</h3>
+                        <p data-translate="extracurricularPrograms">Program Ekstrakurikuler</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-calendar"></i>
+                        <h3>2024</h3>
+                        <p data-translate="establishedYear">Tahun Berdiri</p>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-target"></i>
+                        <h3>Excellence</h3>
+                        <p data-translate="excellenceDesc">Mengutamakan keunggulan dalam setiap kegiatan</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Achievement</h3>
+                        <p data-translate="achievementDesc">Meraih prestasi di berbagai bidang</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Community</h3>
+                        <p data-translate="communityDesc">Membangun komunitas yang solid</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Innovation</h3>
+                        <p data-translate="innovationDesc">Mendorong inovasi dan kreativitas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="about-hero">
+                    <div class="about-content">
+                        <h2 data-translate="aboutHima">Tentang HIMA MI</h2>
+                        <div class="about-grid">
+                            <div class="about-text">
+                                <p data-translate="aboutDescription1">Himpunan Mahasiswa Manajemen Informatika (HIMA MI) adalah organisasi kemahasiswaan yang menaungi seluruh mahasiswa Jurusan Manajemen Informatika di Politeknik Negeri Sriwijaya.</p>
+                                <p data-translate="aboutDescription2">Kami berkomitmen untuk mengembangkan potensi mahasiswa melalui berbagai kegiatan akademik, non-akademik, dan pengembangan soft skills yang relevan dengan dunia kerja.</p>
+                            </div>
+                            <div class="vision-mission">
+                                <h3 data-translate="visionMission">Visi & Misi</h3>
+                                <div class="vm-content">
+                                    <div class="vision">
+                                        <h4 data-translate="vision">Visi:</h4>
+                                        <p data-translate="visionText">Menjadi wadah pengembangan mahasiswa MI yang unggul dan berkarakter.</p>
+                                    </div>
+                                    <div class="mission">
+                                        <h4 data-translate="mission">Misi:</h4>
+                                        <ul>
+                                            <li data-translate="missionText1">Mengembangkan potensi akademik mahasiswa</li>
+                                            <li data-translate="missionText2">Memfasilitasi kegiatan ekstrakurikuler</li>
+                                            <li data-translate="missionText3">Membangun networking dengan industri</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="department-info">
+                    <div class="dept-content">
+                        <div class="dept-text">
+                            <h3 data-translate="departmentTitle">Jurusan Manajemen Informatika</h3>
+                            <p data-translate="departmentSubtitle">Politeknik Negeri Sriwijaya</p>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Palembang, Sumatera Selatan</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>(0711) 353414</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>info@polsri.ac.id</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dept-action">
+                            <a href="https://www.manajemeninformatika.polsri.ac.id" target="_blank" class="btn btn-primary">
+                                <span data-translate="visitWebsite">Kunjungi Website MI</span>
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Section -->
+        <section id="register" class="section">
+            <div class="container">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2 data-translate="registerTitle">Daftar Ekstrakurikuler HIMA MI</h2>
+                        <p data-translate="registerDescription">Bergabunglah dengan program ekstrakurikuler yang sesuai dengan minat dan bakat Anda</p>
+                    </div>
+                    
+                    <form id="registrationForm" onsubmit="submitRegistration(event)">
+                        <div class="form-group">
+                            <label for="namaLengkap" data-translate="fullName">Nama Lengkap *</label>
+                            <input type="text" id="namaLengkap" name="namaLengkap" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prodi" data-translate="studyProgram">Program Studi *</label>
+                            <select id="prodi" name="prodi" required>
+                                <option value="" data-translate="selectStudyProgram">Pilih program studi</option>
+                                <option value="Manajemen Informatika" data-translate="managementInformatics">Manajemen Informatika</option>
+                                <option value="Teknik Komputer" data-translate="computerEngineering">Teknik Komputer</option>
+                                <option value="Sistem Informasi" data-translate="informationSystems">Sistem Informasi</option>
+                                <option value="Teknik Informatika" data-translate="informaticsEngineering">Teknik Informatika</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" data-translate="email">Email *</label>
+                            <input type="email" id="email" name="email" placeholder="nama@student.polsri.ac.id" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nomorHP" data-translate="phoneNumber">Nomor HP *</label>
+                            <input type="tel" id="nomorHP" name="nomorHP" placeholder="08xxxxxxxxxx" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="programHimpunan" data-translate="himProgram">Program Himpunan *</label>
+                            <select id="programHimpunan" name="programHimpunan" required>
+                                <option value="" data-translate="selectHimProgram">Pilih program ekstrakurikuler</option>
+                                <option value="coding" data-translate="programmingCoding">Programming & Coding</option>
+                                <option value="volley" data-translate="volleyball">Volleyball</option>
+                                <option value="basket" data-translate="basketball">Basketball</option>
+                                <option value="futsal" data-translate="futsal">Futsal</option>
+                                <option value="badminton" data-translate="badminton">Badminton</option>
+                                <option value="photography" data-translate="photography">Photography</option>
+                                <option value="music" data-translate="musicBand">Music & Band</option>
+                                <option value="debate" data-translate="debatePublicSpeaking">Debate & Public Speaking</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full" data-translate="submitRegistration">Daftar Sekarang</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Participants Section -->
+        <section id="participants" class="section">
+            <div class="container">
+                <div class="participants-header">
+                    <h2 data-translate="participantsList">Daftar Peserta Terdaftar</h2>
+                    <p><span data-translate="totalParticipants">Total peserta yang telah mendaftar</span>: <span id="participantCount">0</span> <span data-translate="people">orang</span></p>
+                </div>
+                
+                <div id="participantsGrid" class="participants-grid">
+                    <!-- Participants will be loaded here -->
+                </div>
+                
+                <div id="noParticipants" class="no-participants" style="display: none;">
+                    <i class="fas fa-users"></i>
+                    <h3 data-translate="noParticipants">Belum Ada Peserta</h3>
+                    <p data-translate="noParticipantsDesc">Jadilah yang pertama mendaftar ekstrakurikuler HIMA MI!</p>
+                    <button class="btn btn-primary" onclick="showSection('register')" data-translate="registerNow">Daftar Sekarang</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HIMA MI</h3>
+                    <p id="footerDesc">Himpunan Mahasiswa Manajemen Informatika<br>Politeknik Negeri Sriwijaya</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-translate="contact">Kontak</h3>
+                    <div class="contact-list">
+                        <p>Email: hima.mi@polsri.ac.id</p>
+                        <p>Instagram: @hima_mi_polsri</p>
+                        <p>WhatsApp: +62 812-3456-7890</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 data-translate="relatedLinks">Link Terkait</h3>
+                    <div class="link-list">
+                        <a href="https://polsri.ac.id" target="_blank">Politeknik Negeri Sriwijaya</a>
+                        <a href="https://www.manajemeninformatika.polsri.ac.id" target="_blank" data-translate="departmentTitle">Jurusan Manajemen Informatika</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 HIMA MI Polsri. <span data-translate="allRightsReserved">All rights reserved</span>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p data-translate="loading">Loading...</p>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+// Initialize theme toggle event listener
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('change', toggleTheme);
+    }
+});
+    </script>
+</body>
+</html>

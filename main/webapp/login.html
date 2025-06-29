@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HIMA MI</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <!-- Controls -->
+        <div class="login-controls">
+            <div class="language-switcher">
+                <i class="fas fa-globe"></i>
+                <select id="languageSelect" onchange="changeLanguage()">
+                    <option value="id">ID</option>
+                    <option value="en">EN</option>
+                </select>
+            </div>
+            
+            <!-- Theme Toggle -->
+            <div class="theme-toggle">
+                <i class="fas fa-sun"></i>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="login-header">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1>HIMA MI</h1>
+            <p id="loginSubtitle">Himpunan Mahasiswa Manajemen Informatika</p>
+        </div>
+
+        <!-- Login Form -->
+        <div class="login-form-container">
+            <div class="form-header">
+                <h2 data-translate="login">Login</h2>
+                <p data-translate="loginSubtitle">Masuk ke sistem HIMA MI</p>
+            </div>
+
+            <form id="loginForm" onsubmit="submitLogin(event)">
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+                <div class="form-group">
+                    <label for="username" data-translate="username">Username</label>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" name="username" data-translate-placeholder="enterUsername" placeholder="Masukkan username" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" data-translate="password">Password</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" data-translate-placeholder="enterPassword" placeholder="Masukkan password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" id="loginButton" data-translate="loginButton">Login</button>
+            </form>
+
+            <div class="demo-info">
+                <p data-translate="demoLogin">Demo Login:</p>
+                <p class="demo-credentials">Username: <strong>admin</strong> | Password: <strong>admin123</strong></p>
+                
+                <!-- Register Link -->
+                <div class="register-link">
+                    <p data-translate="noAccount">Belum punya akun?</p>
+                    <a href="register.html" class="btn btn-outline">
+                        <span data-translate="registerHere">Daftar di sini</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="back-home">
+            <a href="index.html" class="btn btn-ghost">
+                <i class="fas fa-arrow-left"></i>
+                <span data-translate="backToHome">Kembali ke Beranda</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/login.js"></script>
+    <script>
+// Initialize theme toggle event listener for login page
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('change', toggleTheme);
+    }
+});
+    </script>
+</body>
+</html>

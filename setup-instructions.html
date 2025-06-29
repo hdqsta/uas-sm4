@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Instructions - HIMA MI</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h1 { color: #1f2937; margin-bottom: 1rem; }
+        h2 { color: #374151; margin-top: 2rem; margin-bottom: 1rem; }
+        h3 { color: #4b5563; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        .alert {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .success {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+        code {
+            background: #f3f4f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        .step {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        ul { padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Setup Instructions - HIMA MI Application</h1>
+        
+        <div class="alert">
+            <strong>⚠️ Penting:</strong> Aplikasi ini memerlukan server web untuk berfungsi penuh. 
+            Saat ini Anda membuka file HTML langsung di browser (mode demo).
+        </div>
+
+        <h2>📋 Pilihan Setup</h2>
+
+        <h3>Option 1: Mode Demo (Saat Ini Aktif)</h3>
+        <div class="success alert">
+            <strong>✅ Mode Demo Aktif:</strong> Aplikasi berjalan dengan penyimpanan lokal di browser. 
+            Data akan hilang saat browser ditutup.
+        </div>
+        <ul>
+            <li>Buka file <code>index.html</code> langsung di browser</li>
+            <li>Semua fitur berfungsi dengan penyimpanan sementara</li>
+            <li>Data tersimpan di localStorage browser</li>
+            <li>Cocok untuk demo dan testing</li>
+        </ul>
+
+        <h3>Option 2: Setup Server (Recommended)</h3>
+        <p>Untuk menjalankan aplikasi dengan server Java:</p>
+
+        <div class="step">
+            <h4>1. Install Java Development Kit (JDK)</h4>
+            <ul>
+                <li>Download JDK 8 atau lebih baru dari <a href="https://www.oracle.com/java/technologies/downloads/">Oracle</a> atau <a href="https://adoptium.net/">Adoptium</a></li>
+                <li>Install dan set JAVA_HOME environment variable</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>2. Install Apache Tomcat</h4>
+            <ul>
+                <li>Download Tomcat 9.x dari <a href="https://tomcat.apache.org/download-90.cgi">Apache Tomcat</a></li>
+                <li>Extract ke folder (misal: <code>C:\apache-tomcat-9.0.xx</code>)</li>
+                <li>Set CATALINA_HOME environment variable</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>3. Build dan Deploy Aplikasi</h4>
+            <p>Buat file WAR dan deploy ke Tomcat:</p>
+            <pre>
+# 1. Buat struktur folder WAR
+mkdir himami.war
+cd himami.war
+
+# 2. Copy semua file dari src/main/webapp ke folder ini
+# 3. Copy compiled Java classes ke WEB-INF/classes/
+
+# 4. Deploy ke Tomcat
+# Copy himami.war ke [TOMCAT_HOME]/webapps/
+            </pre>
+        </div>
+
+        <div class="step">
+            <h4>4. Start Tomcat Server</h4>
+            <pre>
+# Windows
+[TOMCAT_HOME]\bin\startup.bat
+
+# Linux/Mac
+[TOMCAT_HOME]/bin/startup.sh
+            </pre>
+        </div>
+
+        <div class="step">
+            <h4>5. Akses Aplikasi</h4>
+            <p>Buka browser dan akses:</p>
+            <code>http://localhost:8080/himami/</code>
+        </div>
+
+        <h3>Option 3: Setup dengan IDE (Eclipse/IntelliJ)</h3>
+        <div class="step">
+            <h4>Eclipse Setup:</h4>
+            <ul>
+                <li>Import project sebagai "Dynamic Web Project"</li>
+                <li>Add Tomcat server di "Servers" view</li>
+                <li>Right-click project → "Run As" → "Run on Server"</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>IntelliJ IDEA Setup:</h4>
+            <ul>
+                <li>Import project sebagai "Web Application"</li>
+                <li>Configure Tomcat di "Run/Debug Configurations"</li>
+                <li>Run aplikasi dengan Tomcat configuration</li>
+            </ul>
+        </div>
+
+        <h2>🔧 Troubleshooting</h2>
+
+        <h3>Error: ClassNotFoundException</h3>
+        <ul>
+            <li>Pastikan semua Java classes sudah di-compile</li>
+            <li>Check classpath dan WEB-INF/classes structure</li>
+        </ul>
+
+        <h3>Error: 404 Not Found</h3>
+        <ul>
+            <li>Pastikan servlet mapping di web.xml benar</li>
+            <li>Check URL pattern dan servlet class name</li>
+        </ul>
+
+        <h3>CORS Error</h3>
+        <ul>
+            <li>Pastikan aplikasi diakses melalui server (http://)</li>
+            <li>Jangan buka file HTML langsung (file://)</li>
+        </ul>
+
+        <h2>📁 Struktur Project</h2>
+        <pre>
+src/
+├── main/
+│   ├── java/
+│   │   └── com/himami/
+│   │       ├── model/          # Data models
+│   │       ├── servlet/        # HTTP servlets
+│   │       ├── storage/        # Data storage
+│   │       ├── util/           # Utility classes
+│   │       └── filter/         # Servlet filters
+│   └── webapp/
+│       ├── WEB-INF/
+│       │   └── web.xml         # Web configuration
+│       ├── css/                # Stylesheets
+│       ├── js/                 # JavaScript files
+│       ├── index.html          # Main page
+│       ├── login.html          # Login page
+│       ├── register.html       # Registration page
+│       └── profile.html        # Profile page
+        </pre>
+
+        <h2>🎯 Fitur Aplikasi</h2>
+        <ul>
+            <li>✅ Pendaftaran ekstrakurikuler</li>
+            <li>✅ Daftar peserta</li>
+            <li>✅ Login/logout system</li>
+            <li>✅ User profile management</li>
+            <li>✅ Multi-language support (ID/EN)</li>
+            <li>✅ Dark/light theme</li>
+            <li>✅ Responsive design</li>
+            <li>✅ Local storage fallback</li>
+        </ul>
+
+        <div class="success alert">
+            <strong>💡 Tips:</strong> Untuk development cepat, gunakan mode demo saat ini. 
+            Untuk production atau testing lengkap, setup server sesuai instruksi di atas.
+        </div>
+
+        <p style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" style="background: #3b82f6; color: white; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 0.5rem;">
+                ← Kembali ke Aplikasi
+            </a>
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+📁 YOUR PROJECT STRUCTURE DETECTED
+==================================
+
+Current Location: C:\src\
+
+Structure Found:
+C:\src\
+├── main\
+│   └── java\
+│       └── com\
+│           └── himami\
+│               ├── filter\
+│               │   └── CharacterEncodingFilter.java
+│               ├── model\
+│               │   ├── Participant.java
+│               │   └── User.java
+│               ├── servlet\
+│               │   ├── AuthServlet.java
+│               │   ├── ParticipantServlet.java
+│               │   └── RegisterServlet.java
+│               ├── storage\
+│               │   └── DataStorage.java
+│               └── util\
+│                   ├── JsonUtil.java
+│                   ├── PasswordUtil.java
+│                   ├── ResponseUtil.java
+│                   ├── SessionUtil.java
+│                   └── ValidationUtil.java
+└── [other files...]
+
+WHAT TO DO NEXT:
+===============
+
+1. QUICK TEST (Recommended first):
+   > quick-test.bat
+
+2. COMPILE ALL JAVA FILES:
+   > compile-for-your-structure.bat
+
+3. FULL DEPLOYMENT:
+   > full-deployment.bat
+
+EXPECTED RESULTS:
+================
+
+After compilation, you should have:
+compiled-classes\
+└── com\
+    └── himami\
+        ├── filter\
+        │   └── CharacterEncodingFilter.class
+        ├── model\
+        │   ├── Participant.class
+        │   └── User.class
+        ├── servlet\
+        │   ├── AuthServlet.class
+        │   ├── ParticipantServlet.class
+        │   └── RegisterServlet.class
+        ├── storage\
+        │   └── DataStorage.class
+        └── util\
+            ├── JsonUtil.class
+            ├── PasswordUtil.class
+            ├── ResponseUtil.class
+            ├── SessionUtil.class
+            └── ValidationUtil.class
+
+TROUBLESHOOTING:
+===============
+
+If compilation fails:
+1. Check servlet-api.jar path
+2. Look for package declaration errors
+3. Check for missing dependencies
+4. Verify Java syntax
+
+If deployment fails:
+1. Make sure Tomcat is installed
+2. Check TOMCAT_PATH in scripts
+3. Verify webapp files exist
+4. Check web.xml configuration
